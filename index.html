@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gubbachi · The Flock — Student Line List 2026–27</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E🐦%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{--ink:#f6ecda;--dim:#b3a898;--gold:#ffb14a;--g:rgba(22,16,34,.58)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:linear-gradient(#090c1b,#1a0f2e 55%,#3b1c2c) fixed;color:var(--ink);font:16px/1.55 'DM Sans',system-ui,sans-serif}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+main,nav{position:relative;z-index:1}
+nav{position:fixed;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;background:linear-gradient(rgba(9,12,27,.8),transparent)}
+nav a{color:var(--ink);text-decoration:none;margin-left:22px;font-size:14px;opacity:.85}
+nav .lo{margin:0;font:600 20px Fraunces,serif;display:flex;gap:10px;align-items:center;opacity:1}
+nav img{height:30px}
+section,header{padding:90px 5vw 60px;max-width:1200px;margin:auto}
+header{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:40px}
+.eye{color:var(--gold);letter-spacing:3px;text-transform:uppercase;font-size:12px;font-weight:700}
+h1{font:600 clamp(40px,7vw,92px)/1 Fraunces,serif;margin:12px 0 18px;text-shadow:0 4px 40px #000}
+h1 em{color:var(--gold)}
+h2{font:600 clamp(28px,4vw,46px)/1.1 Fraunces,serif;margin-bottom:10px}
+.lead{max-width:560px;color:var(--dim)}
+.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-top:34px}
+.kp div,.gl{background:var(--g);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:18px 20px}
+.kp b{display:block;font:600 40px/1 Fraunces,serif;color:var(--gold)}
+.kp span{font-size:13px;color:var(--dim)}
+.modes{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+button{font:inherit;color:var(--ink);cursor:pointer}
+.modes button{padding:10px 20px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:var(--g);backdrop-filter:blur(10px)}
+.modes button.on{background:var(--gold);color:#241505;border-color:var(--gold);font-weight:700}
+#lg{display:flex;flex-wrap:wrap;gap:8px;max-width:760px}
+#lg button{display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:99px;background:var(--g);border:1px solid rgba(255,255,255,.12);font-size:13px;backdrop-filter:blur(10px)}
+#lg button.on{border-color:var(--gold)}
+#lg s{width:10px;height:10px;border-radius:50%}
+#lg b{color:var(--dim);font-weight:500}
+#explore{min-height:92vh}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:18px;margin-top:26px}
+.gl h3{font:600 20px Fraunces,serif;margin-bottom:10px}
+.b{display:grid;grid-template-columns:105px 1fr 38px;gap:10px;align-items:center;font-size:13px;margin:7px 0}
+.b i{height:9px;border-radius:9px;background:linear-gradient(90deg,var(--c),transparent);width:var(--w)}
+.b b{text-align:right;font-weight:500}
+#dn{width:170px;height:170px;border-radius:50%;margin:8px auto;display:grid;place-items:center}
+#dn div{width:104px;height:104px;border-radius:50%;background:#1b1230;display:grid;place-items:center;text-align:center;font-size:13px;color:var(--dim)}
+.leg{display:flex;justify-content:center;gap:18px;font-size:13px}
+#tl{display:flex;align-items:flex-end;gap:5px;height:170px}
+#tl div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;font-size:9px;color:var(--dim)}
+#tl i{width:100%;background:linear-gradient(var(--gold),#ff6b8b);border-radius:5px 5px 0 0;min-height:2px}
+#chat{height:300px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding-right:6px}
+.m{max-width:85%;padding:10px 15px;border-radius:16px;font-size:14.5px}
+.m.a{background:rgba(255,255,255,.08);border-bottom-left-radius:4px}
+.m.u{background:var(--gold);color:#241505;align-self:flex-end;border-bottom-right-radius:4px}
+.sg{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.sg button{font-size:12.5px;padding:6px 13px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:none}
+.sg button:hover{border-color:var(--gold)}
+form{display:flex;gap:10px}
+input[type=text]{flex:1;padding:12px 16px;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:rgba(0,0,0,.3);color:var(--ink);font:inherit;outline:0}
+form button{padding:0 24px;border-radius:99px;border:0;background:var(--gold);color:#241505;font-weight:700}
+#drop{border:2px dashed rgba(255,177,74,.5);border-radius:20px;padding:34px;text-align:center;cursor:pointer}
+#drop:hover{background:rgba(255,177,74,.08)}
+#dl{margin-top:14px;padding:10px 22px;border-radius:99px;border:0;background:var(--gold);color:#241505;font-weight:700}
+footer{position:relative;z-index:1;text-align:center;color:var(--dim);font-size:13px;padding:40px 5vw 60px}
+@media(max-width:700px){nav a:not(.lo){display:none}}
+</style></head><body>
+<canvas id="bg"></canvas>
+<nav><a class="lo" href="#top"><img src="logo.png" alt="" onerror="this.replaceWith('🐦')"> Gubbachi</a>
+<span><a href="#explore">The Flock</a><a href="#numbers">Numbers</a><a href="#ask">Ask Chiv</a><a href="#update">Update</a></span></nav>
+<main>
+<header id="top">
+<p class="eye">Gubbachi · Student Line List 2026–27</p>
+<h1>Every child is a<br><em>bird in the flock.</em></h1>
+<p class="lead">Each glowing point is one child. Fly through our schools, programs and grades — then ask Chiv, our sparrow assistant, anything about the data.</p>
+<div class="kp" id="kp"></div>
+</header>
+
+<section id="explore">
+<p class="eye">Interactive 3D</p><h2>Watch the flock regroup</h2>
+<p class="lead">Pick a view and the children fly into new formations. Tap a label to spotlight one group. Move your mouse to look around.</p>
+<div class="modes" id="modes">
+<button data-m="flock" class="on">🐦 Murmuration</button><button data-m="school">🏫 Schools</button><button data-m="program">📚 Programs</button><button data-m="grade">🎓 Grades</button><button data-m="gender">⚖️ Girls &amp; boys</button></div>
+<div id="lg"></div>
+</section>
+
+<section id="numbers">
+<p class="eye">The numbers</p><h2>Who is in our nest</h2>
+<div class="grid">
+<div class="gl"><h3>By school</h3><div id="cs"></div></div>
+<div class="gl"><h3>By program</h3><div id="cp"></div></div>
+<div class="gl"><h3>By grade</h3><div id="cg"></div></div>
+<div class="gl"><h3>Girls &amp; boys</h3><div id="dn"><div id="dt"></div></div>
+<div class="leg"><span style="color:#ff7aa8">● Girls</span><span style="color:#5ee0c1">● Boys</span></div></div>
+<div class="gl" style="grid-column:1/-1"><h3>New enrolments per month</h3><div id="tl"></div></div>
+</div>
+</section>
+
+<section id="ask">
+<p class="eye">AI assistant</p><h2>Ask Chiv the sparrow</h2>
+<p class="lead">Chiv reads the live data on this page — try a question in plain English.</p>
+<div class="gl" style="margin-top:22px"><div id="chat"></div>
+<div class="sg" id="sg"></div>
+<form id="f"><input type="text" id="q" placeholder="e.g. How many girls in Kodathi?" autocomplete="off"><button>Ask</button></form></div>
+</section>
+
+<section id="update">
+<p class="eye">For the Gubbachi team</p><h2>Update the data in 1 minute</h2>
+<p class="lead" style="margin-bottom:20px">Drop the new Excel line list here. The site previews it instantly (names are never kept). Then download <b>data.json</b> and upload it to GitHub — the live site refreshes by itself.</p>
+<div id="drop"><p id="um">📥 Drop the .xlsx here, or click to choose</p><input type="file" id="fi" accept=".xlsx,.xls,.json" hidden></div>
+<button id="dl" hidden>⬇ Download data.json</button>
+</section>
+</main>
+<footer>🐦 Gubbachi · <span id="up"></span> · Built with care for every little bird</footer>
+
+<script>
+const $=s=>document.querySelector(s),
+C=['#ffb14a','#ff6b8b','#5ee0c1','#7aa8ff','#c58bff','#f5e663','#ff8a5c','#6fd3ff','#9be36b','#e58bd0','#b0b7c9','#ffd1a1'];
+let D=[],mode='flock',hl=null,N=0,P,T,pts,geo,EN=[],CM={},MK='school',upd='',mx=0,my=0;
+const K={school:r=>r.s,program:r=>r.p,grade:r=>r.g,gender:r=>r.x};
+const gord=g=>g==='ECCE'?0:g==='BLEMFT'?11:+g;
+const cnt=(f,rows=D)=>{const m={};rows.forEach(r=>m[f(r)]=(m[f(r)]||0)+1);return Object.entries(m).sort((a,b)=>b[1]-a[1])};
+
+/* ---------- 3D scene ---------- */
+const R=new THREE.WebGLRenderer({canvas:$('#bg'),antialias:true,alpha:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene(),cam=new THREE.PerspectiveCamera(55,1,.1,300);cam.position.z=58;
+const rs=()=>{R.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()};
+addEventListener('resize',rs);rs();
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1});
+S.add(new THREE.AmbientLight(0xffe6c8,.75));
+const L=new THREE.DirectionalLight(0xffffff,1.1);L.position.set(5,10,12);S.add(L);
+
+// the Gubbachi sparrow
+const bird=new THREE.Group(),sph=new THREE.SphereGeometry(1,24,16);
+function add(g,c,sc,p,par=bird){const o=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:c,roughness:.8}));o.scale.set(...sc);o.position.set(...p);par.add(o);return o}
+add(sph,0x8b5a3c,[2.2,1.4,1.3],[0,0,0]);add(sph,0xe9d9bd,[1.7,.9,1.1],[.2,-.5,.1]);
+add(sph,0x9a6a48,[1,1,1],[2.2,.9,0]);add(sph,0x2a2018,[.5,.45,.9],[2.75,.35,0]);
+add(new THREE.ConeGeometry(.28,.8,12),0xffc15a,[1,1,1],[3.35,.85,0]).rotation.z=-Math.PI/2;
+[.8,-.8].forEach(z=>add(sph,0x111111,[.12,.12,.12],[2.75,1.15,z]));
+add(new THREE.BoxGeometry(2.2,.18,.7),0x6b4128,[1,1,1],[-2.9,-.1,0]).rotation.z=.25;
+const wings=[1,-1].map(s=>{const p=new THREE.Group();p.position.set(-.2,.5,s);bird.add(p);add(sph,0x6b4128,[1.5,.14,1.1],[-.4,0,s*.9],p);return p});
+S.add(bird);
+
+// soft round sprite for each child
+const cv=document.createElement('canvas');cv.width=cv.height=64;
+const cx=cv.getContext('2d'),gr=cx.createRadialGradient(32,32,0,32,32,32);
+gr.addColorStop(0,'#fff');gr.addColorStop(.35,'rgba(255,255,255,.7)');gr.addColorStop(1,'rgba(255,255,255,0)');
+cx.fillStyle=gr;cx.fillRect(0,0,64,64);const sprite=new THREE.CanvasTexture(cv);
+
+function layout(){
+ MK=mode==='flock'?'school':mode;const f=K[MK];EN=cnt(f);CM={};
+ EN.forEach(([k],i)=>CM[k]=MK==='gender'?(k==='Female'?'#ff7aa8':'#5ee0c1'):C[i%12]);
+ const n=EN.length,ctr={},sp={};
+ EN.forEach(([k,v],i)=>{sp[k]=2+Math.sqrt(v)*.25;
+  if(n<3)ctr[k]=[(i?1:-1)*13,0,0];
+  else{const y=1-2*(i+.5)/n,r=Math.sqrt(1-y*y),a=i*2.4;ctr[k]=[Math.cos(a)*r*21,y*17,Math.sin(a)*r*21]}});
+ const g=()=>Math.random()+Math.random()+Math.random()-1.5;
+ D.forEach((r,i)=>{const k=f(r);
+  if(mode==='flock'){const u=Math.random()*6.283,v=Math.acos(2*Math.random()-1),Rd=15+Math.random()*13;
+   T.set([Rd*Math.sin(v)*Math.cos(u),Rd*Math.sin(v)*Math.sin(u)*.7,Rd*Math.cos(v)],i*3)}
+  else T.set([ctr[k][0]+g()*sp[k]*1.6,ctr[k][1]+g()*sp[k]*1.6,ctr[k][2]+g()*sp[k]*1.6],i*3)});
+ recolor();
+}
+function recolor(){
+ const col=new Float32Array(N*3),c=new THREE.Color(),f=K[MK];
+ D.forEach((r,i)=>{const k=f(r);c.set(CM[k]);if(hl&&hl!==k)c.multiplyScalar(.1);col.set([c.r,c.g,c.b],i*3)});
+ geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+ $('#lg').innerHTML=EN.map(([k,v])=>`<button class="${hl===k?'on':''}" data-k="${k}"><s style="background:${CM[k]}"></s>${k} <b>${v}</b></button>`).join('');
+}
+function setMode(m){mode=m;hl=null;document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));layout()}
+$('#modes').onclick=e=>{const b=e.target.closest('button');b&&setMode(b.dataset.m)};
+$('#lg').onclick=e=>{const b=e.target.closest('button');if(b){hl=hl===b.dataset.k?null:b.dataset.k;recolor()}};
+
+function tick(t){requestAnimationFrame(tick);t*=.001;const sc=scrollY/innerHeight;
+ if(pts){for(let i=0;i<N*3;i++)P[i]+=(T[i]-P[i])*.045+Math.sin(t*1.5+i)*.012;
+  geo.attributes.position.needsUpdate=true;pts.rotation.y=t*.07+scrollY*.0004}
+ const s=Math.max(0,1-sc*1.5);bird.visible=s>.02;bird.scale.setScalar(1.7*s);
+ bird.position.y=Math.sin(t*2)*.5;bird.rotation.y=-.6+mx*.5;bird.rotation.z=Math.sin(t*2)*.05;
+ wings.forEach((w,j)=>w.rotation.x=-(j?-1:1)*(.45+Math.sin(t*7)*.55));
+ cam.position.x+=(mx*6-cam.position.x)*.03;cam.position.y+=(-my*4-cam.position.y)*.03;cam.lookAt(0,0,0);R.render(S,cam)}
+requestAnimationFrame(tick);
+
+/* ---------- data + dashboard ---------- */
+const up=el=>{const raw=el.dataset.v,n=parseFloat(raw),suf=raw.endsWith('%')?'%':'';let s=null;
+ const f=t=>{s=s||t;const p=Math.min((t-s)/1200,1);el.textContent=Math.round(n*(1-Math.pow(1-p,3)))+suf;p<1&&requestAnimationFrame(f)};requestAnimationFrame(f)};
+const bars=(el,e)=>{const m=Math.max(...e.map(x=>x[1]),1);$(el).innerHTML=e.map(([k,v],i)=>`<div class="b"><span>${k}</span><i style="--w:${v/m*100}%;--c:${C[i%12]}"></i><b>${v}</b></div>`).join('')};
+
+function init(rows){
+ D=rows;N=D.length;if(pts)S.remove(pts);
+ geo=new THREE.BufferGeometry();P=new Float32Array(N*3).map(()=>(Math.random()-.5)*90);T=new Float32Array(N*3);
+ geo.setAttribute('position',new THREE.BufferAttribute(P,3));
+ pts=new THREE.Points(geo,new THREE.PointsMaterial({size:1.5,map:sprite,vertexColors:true,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending}));
+ S.add(pts);hl=null;mode='flock';layout();
+ const g=D.filter(r=>r.x==='Female').length,nw=D.filter(r=>r.e>='2026-06').length;
+ const k=[[N,'Children in the flock'],[Math.round(g/N*100)+'%','Girls'],[new Set(D.map(r=>r.s)).size,'Schools & centres'],[new Set(D.map(r=>r.p)).size,'Programs'],[nw,'Joined since Jun ’26']];
+ $('#kp').innerHTML=k.map(([v,l])=>`<div><b data-v="${v}">0</b><span>${l}</span></div>`).join('');
+ document.querySelectorAll('#kp b').forEach(up);
+ bars('#cs',cnt(r=>r.s));bars('#cp',cnt(r=>r.p));bars('#cg',cnt(r=>r.g).sort((a,b)=>gord(a[0])-gord(b[0])));
+ $('#dn').style.background=`conic-gradient(#ff7aa8 0 ${g/N*100}%,#5ee0c1 0)`;
+ $('#dt').innerHTML=`${g} girls<br>${N-g} boys`;
+ const last=D.map(r=>r.e).filter(Boolean).sort().pop()||'2026-11';let [y,m]=last.split('-').map(Number);const ms=[];
+ for(let i=0;i<18;i++){ms.unshift(y+'-'+String(m).padStart(2,'0'));m--;if(!m){m=12;y--}}
+ const mc=Object.fromEntries(cnt(r=>r.e)),M=Math.max(...ms.map(x=>mc[x]||0),1);
+ $('#tl').innerHTML=ms.map(x=>`<div title="${x}: ${mc[x]||0}"><i style="height:${(mc[x]||0)/M*88}%"></i><span>${x.slice(2)}</span></div>`).join('');
+ $('#up').textContent='Data updated '+upd;
+}
+const fromJ=j=>{upd=j.updated;init(j.rows.map(a=>({s:a[0],p:a[1],g:a[2],x:a[3],e:a[4]})))};
+fetch('data.json').then(r=>r.json()).then(fromJ).catch(()=>{$('#um').textContent='📥 Drop the .xlsx here to load the data'});
+
+/* ---------- update by drag & drop ---------- */
+const pad=n=>String(n).padStart(2,'0');
+function load(file){const rd=new FileReader();
+ rd.onload=e=>{try{
+  if(file.name.endsWith('.json'))fromJ(JSON.parse(e.target.result));
+  else{const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array',cellDates:true});
+   const j=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
+   upd=new Date().toISOString().slice(0,10);
+   init(j.map(r=>({s:r.School,p:r.Program,g:String(r.Grade),x:r.Gender,e:r.Enrolled instanceof Date?r.Enrolled.getFullYear()+'-'+pad(r.Enrolled.getMonth()+1):''})))}
+  $('#um').textContent='✅ Loaded '+N+' children — scroll up to see the flock. Names were not stored.';$('#dl').hidden=false}
+ catch(x){$('#um').textContent='⚠️ Could not read that file'}};
+ file.name.endsWith('.json')?rd.readAsText(file):rd.readAsArrayBuffer(file)}
+$('#drop').onclick=()=>$('#fi').click();$('#fi').onchange=e=>load(e.target.files[0]);
+$('#drop').ondragover=e=>e.preventDefault();$('#drop').ondrop=e=>{e.preventDefault();load(e.dataTransfer.files[0])};
+$('#dl').onclick=()=>{const j={updated:upd,rows:D.map(r=>[r.s,r.p,r.g,r.x,r.e])},a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob([JSON.stringify(j)],{type:'application/json'}));a.download='data.json';a.click()};
+
+/* ---------- Chiv, the AI assistant ---------- */
+const say=(h,u)=>{const d=document.createElement('div');d.className='m '+(u?'u':'a');d.innerHTML=h;$('#chat').append(d);$('#chat').scrollTop=1e5};
+const list=(e,t)=>`<b>${t}</b><br>`+e.map(([k,v])=>`${k} — ${v}`).join('<br>');
+function ask(q){
+ const l=q.toLowerCase();let f=D,tg=[],gf=false;
+ const sc=[...new Set(D.map(r=>r.s))].filter(s=>l.includes(s.toLowerCase()));
+ const sch=sc.filter(a=>!sc.some(b=>b!==a&&b.toLowerCase().includes(a.toLowerCase())));
+ if(sch.length){f=f.filter(r=>sch.includes(r.s));tg.push('in '+sch.join(' + '))}
+ let pf=null;
+ if(l.includes('bridge'))pf=r=>r.p.startsWith('Bridge');else if(l.includes('blem rc'))pf=r=>r.p==='BLEM RC';
+ else if(l.includes('ecce'))pf=r=>r.p==='ECCE';else if(l.includes('slp'))pf=r=>r.p==='SLP';
+ else if(/blem/.test(l)&&!l.includes('blemft'))pf=r=>r.p==='BLEM';
+ if(pf){f=f.filter(pf);tg.push('in that program')}
+ const gm=l.match(/(?:grade|class|std)\s*(\d+)/);
+ if(gm){f=f.filter(r=>r.g===gm[1]);tg.push('in grade '+gm[1])}else if(l.includes('blemft')){f=f.filter(r=>r.g==='BLEMFT');tg.push('in BLEMFT')}
+ if(/girl|female|women/.test(l)){f=f.filter(r=>r.x==='Female');tg.push('who are girls');gf=true}
+ else if(/\bboys?\b|\bmale\b|\bmen\b/.test(l)){f=f.filter(r=>r.x==='Male');tg.push('who are boys');gf=true}
+ if(/\bnew\b|joined|admitted|recent/.test(l)){f=f.filter(r=>r.e>='2026-06');tg.push('who joined since Jun ’26')}
+ let h;
+ if(/top|largest|biggest|most|rank/.test(l)&&/school|centre|center/.test(l)&&!sch.length)h=list(cnt(r=>r.s,f).slice(0,5),'Our 5 largest schools');
+ else if(/(by|each|per|break\w*)\s*(school|centre)/.test(l))h=list(cnt(r=>r.s,f),'By school '+tg.join(' '));
+ else if(/(by|each|per|break\w*)\s*program/.test(l))h=list(cnt(r=>r.p,f),'By program '+tg.join(' '));
+ else if(/(by|each|per|break\w*)\s*grade/.test(l))h=list(cnt(r=>r.g,f).sort((a,b)=>gord(a[0])-gord(b[0])),'By grade '+tg.join(' '));
+ else if(!tg.length)h='I’m Chiv 🐦 I can count and compare the flock. Try: “girls in Kodathi”, “grade 3 boys”, “new students by program” or “top schools”.';
+ else{const gi=f.filter(r=>r.x==='Female').length;
+  h=`<b>${f.length}</b> children ${tg.join(' ')} — ${(f.length/N*100).toFixed(1)}% of the flock.`+(gf||!f.length?'':`<br>${gi} girls · ${f.length-gi} boys`);
+  if(sch.length===1){setMode('school');hl=sch[0];recolor();h+='<br><small>✨ Spotlighted in the 3D flock above.</small>'}}
+ say(h)}
+$('#f').onsubmit=e=>{e.preventDefault();const q=$('#q').value.trim();if(!q)return;say(q,1);$('#q').value='';setTimeout(()=>ask(q),350)};
+$('#sg').innerHTML=['How many girls in Kodathi?','Top schools','New students by program','Grade 3 boys','Breakdown by grade'].map(s=>`<button>${s}</button>`).join('');
+$('#sg').onclick=e=>{if(e.target.tagName==='BUTTON'){say(e.target.textContent,1);setTimeout(()=>ask(e.target.textContent),350)}};
+say('Chirp chirp! 🐦 I’m Chiv, Gubbachi’s data sparrow. Ask me about schools, programs, grades or girls and boys.');
+</script></body></html>
